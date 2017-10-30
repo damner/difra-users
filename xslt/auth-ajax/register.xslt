@@ -3,6 +3,7 @@
 	<xsl:template match="register">
 		<div id="register-popup">
 			<form action="/register/submit" class="ajaxer">
+				<!--todo Template not found-->
                 <xsl:call-template name="register-form"/>
 			</form>
 		</div>

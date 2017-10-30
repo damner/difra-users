@@ -22,8 +22,14 @@ class Handlers
     {
         // login
         Event::getInstance(Users::EVENT_LOGIN_FORM_AJAX)->registerDefaultHandler(function () {
+            $xml = new \DOMDocument();
+            $root = $xml->appendChild($xml->createElement('root'));
+            $root->appendChild($xml->createElement('login'));
+            $view = new View();
+            $view->setTemplateInstance('auth-ajax');
+            $view->setFillXML(View::FILL_XML_LOCALE);
             Ajaxer::close();
-            Ajaxer::display(View::simpleTemplate('auth-ajax', 'login'), 'overlay-login');
+            Ajaxer::display($view->process($xml), 'overlay-login');
         });
         Event::getInstance(Users::EVENT_LOGIN_DONE_AJAX)->registerDefaultHandler(function () {
             Ajaxer::reload();
@@ -31,8 +37,14 @@ class Handlers
 
         // register
         Event::getInstance(Users::EVENT_REGISTER_FORM_AJAX)->registerDefaultHandler(function () {
+            $xml = new \DOMDocument();
+            $root = $xml->appendChild($xml->createElement('root'));
+            $root->appendChild($xml->createElement('register'));
+            $view = new View();
+            $view->setTemplateInstance('auth-ajax');
+            $view->setFillXML(View::FILL_XML_LOCALE);
             Ajaxer::close();
-            Ajaxer::display(View::simpleTemplate('auth-ajax', 'register'), 'overlay-registration');
+            Ajaxer::display($view->process($xml), 'overlay-registration');
         });
         Event::getInstance(Users::EVENT_REGISTER_DONE_AJAX)->registerDefaultHandler(function () {
             Ajaxer::close();
@@ -44,7 +56,8 @@ class Handlers
         // password change
         Event::getInstance(Users::EVENT_PASSWORD_CHANGE_FORM_AJAX)->registerDefaultHandler(function () {
             $xml = new \DOMDocument();
-            $xml->appendChild($xml->createElement('passwordChange'));
+            $root = $xml->appendChild($xml->createElement('root'));
+            $root->appendChild($xml->createElement('passwordChange'));
             $view = new View();
             $view->setTemplateInstance('auth-ajax');
             $view->setFillXML(View::FILL_XML_LOCALE);
@@ -59,8 +72,14 @@ class Handlers
 
         // password recovery
         Event::getInstance(Users::EVENT_RECOVER_FORM_AJAX)->registerDefaultHandler(function () {
+            $xml = new \DOMDocument();
+            $root = $xml->appendChild($xml->createElement('root'));
+            $root->appendChild($xml->createElement('recover'));
+            $view = new View();
+            $view->setTemplateInstance('auth-ajax');
+            $view->setFillXML(View::FILL_XML_LOCALE);
             Ajaxer::close();
-            Ajaxer::display(View::simpleTemplate('auth-ajax', 'recover'), 'overlay-password-recovery');
+            Ajaxer::display($view->process($xml), 'overlay-password-recovery');
         });
         Event::getInstance(Users::EVENT_RECOVER_DONE_AJAX)->registerDefaultHandler(function () {
             Ajaxer::close();
