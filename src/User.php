@@ -127,7 +127,7 @@ class User
             $user->getXML($subNode, true);
         }
         $stats = DB::getInstance(Users::DB)->fetchRow(
-            'SELECT count(*) AS `total`, count(*) - count(`activation`) AS `active` FROM `user`'
+            'SELECT COUNT(*) AS `total`, COUNT(*) - count(`activation`) AS `active` FROM `user`'
         );
         $subNode->setAttribute('total', $stats['total']);
         $subNode->setAttribute('active', $stats['active']);
@@ -546,7 +546,7 @@ class User
                 do {
                     $user->activation = bin2hex(openssl_random_pseudo_bytes(24));
                 } while (DB::getInstance(Users::getDB())
-                    ->fetchOne('SELECT count(*) FROM `user` WHERE `activation`=?', [$user->activation]));
+                    ->fetchOne('SELECT COUNT(*) FROM `user` WHERE `activation`=?', [$user->activation]));
                 $user->active = 0;
                 break;
             case 'moderate':

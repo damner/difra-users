@@ -26,7 +26,7 @@ class Recover
         }
         $db = DB::getInstance(Users::getDB());
         $data = $db->fetchRow(
-            'SELECT `id`,`email`,`active`,`banned` FROM `user` WHERE `email`=:login OR `login`=:login LIMIT 1',
+            'SELECT `id`,`email`,`active`,`banned` FROM `user` WHERE `email` = :login OR `login` = :login LIMIT 1',
             ['login' => $login]
         );
         if (empty($data)) {
@@ -40,10 +40,10 @@ class Recover
         }
         do {
             $key = bin2hex(openssl_random_pseudo_bytes(12));
-            $d = $db->fetchOne('SELECT count(*) FROM `user_recover` WHERE `recover`=\'' . $key . "'");
+            $d = $db->fetchOne('SELECT COUNT(*) FROM `user_recover` WHERE `recover` = ?', [$key]);
         } while ($d);
-        $db->query("INSERT INTO `user_recover` (`recover`,`user`) VALUES (?,?)", [$key, $data['id']]);
-        $db->query("DELETE FROM `user_recover` WHERE `date_requested`<DATE_SUB(NOW(),INTERVAL 1 YEAR)");
+        $db->query('INSERT INTO `user_recover` (`recover`, `user`) VALUES (?, ?)', [$key, $data['id']]);
+        $db->query('DELETE FROM `user_recover` WHERE `date_requested` < DATE_SUB(NOW(), INTERVAL 1 YEAR)');
         $mailer = Mailer::getInstance();
         $mailer->setTo($data['email']);
         $mailer->setSubject(Locales::get('auth/mail/recover/subject'));
@@ -69,7 +69,7 @@ class Recover
     public static function verify($key, $returnUser = false)
     {
         $db = DB::getInstance(Users::getDB());
-        $data = $db->fetchRow('SELECT * FROM `user_recover` WHERE `recover`=?', [$key]);
+        $data = $db->fetchRow('SELECT * FROM `user_recover` WHERE `recover` = ?', [$key]);
         if (empty($data)) {
             throw new UsersException(self::RECOVER_INVALID);
         }
@@ -97,10 +97,7 @@ class Recover
         if (!$key) {
             throw new UsersException(self::RECOVER_INVALID);
         }
-        DB::getInstance(Users::getDB())->query(
-            'UPDATE `user_recover` SET `used`=1 WHERE `recover`=?',
-            [(string)$key]
-        );
+        DB::getInstance(Users::getDB())->query('UPDATE `user_recover` SET `used` = 1 WHERE `recover` = ?', [(string)$key]);
     }
 
     /**
