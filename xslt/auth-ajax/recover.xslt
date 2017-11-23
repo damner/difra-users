@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:template match="recover">
 		<div id="recover">
 			<form action="/recover" class="ajaxer">
@@ -8,9 +8,7 @@
 				</h2>
 				<div class="container">
 					<div class="holder">
-						<input type="text"
-							   name="email"
-							   placeholder="{$locale/auth/placeholders/email}"/>
+						<input type="text" name="email" placeholder="{$locale/auth/placeholders/email}"/>
 					</div>
 					<div class="required" style="display:none">
 						<div class="arrow"/>
@@ -25,9 +23,7 @@
 				</div>
 				<div class="container">
 					<div class="holder">
-						<input type="text"
-							   name="email"
-							   placeholder="{$locale/auth/placeholders/captcha}"/>
+						<input type="text" name="email" placeholder="{$locale/auth/placeholders/captcha}"/>
 					</div>
 					<div class="required" style="display:none">
 						<div class="arrow"/>

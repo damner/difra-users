@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="userList">
 		<h2>
@@ -15,6 +15,7 @@
             <input type="submit"/>
         </form>
         <br/>
+
 		<xsl:choose>
 			<xsl:when test="not(user)">
 				<xsl:value-of select="$locale/auth/adm/users-empty"/>
@@ -61,7 +62,6 @@
 								<xsl:value-of select="$locale/auth/adm/flags"/>
 							</th>
 							<th>
-
 							</th>
 						</tr>
 					</thead>
@@ -114,8 +114,7 @@
 			</td>
 			<td>
 				<xsl:choose>
-					<xsl:when
-							test="@logged='0000-00-00 00:00:00'">
+					<xsl:when test="@logged='0000-00-00 00:00:00'">
 						<xsl:text>—</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
@@ -125,25 +124,19 @@
 			</td>
 			<td>
 				<xsl:choose>
-					<xsl:when
-							test="@banned=1 and @active=0">
-						<xsl:value-of
-								select="$locale/auth/adm/inactive"/>
+					<xsl:when test="@banned=1 and @active=0">
+						<xsl:value-of select="$locale/auth/adm/inactive"/>
 						<xsl:text>,&#160;</xsl:text>
-						<xsl:value-of
-								select="$locale/auth/adm/banned"/>
+						<xsl:value-of select="$locale/auth/adm/banned"/>
 					</xsl:when>
 					<xsl:when test="@banned=1">
-						<xsl:value-of
-								select="$locale/auth/adm/banned"/>
+						<xsl:value-of select="$locale/auth/adm/banned"/>
 					</xsl:when>
 					<xsl:when test="@active=0">
-						<xsl:value-of
-								select="$locale/auth/adm/inactive"/>
+						<xsl:value-of select="$locale/auth/adm/inactive"/>
 					</xsl:when>
 					<xsl:when test="@moderator=1">
-						<xsl:value-of
-								select="$locale/auth/adm/moderator_flag"/>
+						<xsl:value-of select="$locale/auth/adm/moderator_flag"/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>—</xsl:text>
@@ -152,49 +145,37 @@
 			</td>
 			<td class="actions">
 				<xsl:if test="@active=0">
-					<a href="/adm/users/list/activate/{@id}"
-					   class="button ajaxer">
-						<xsl:value-of
-								select="$locale/auth/adm/activate"/>
+					<a href="/adm/users/list/activate/{@id}" class="button ajaxer">
+						<xsl:value-of select="$locale/auth/adm/activate"/>
 					</a>
 				</xsl:if>
 
 				<xsl:choose>
 					<xsl:when test="@banned=1">
-						<a href="/adm/users/list/unban/{@id}"
-						   class="button ajaxer">
-							<xsl:value-of
-									select="$locale/auth/adm/unban"/>
+						<a href="/adm/users/list/unban/{@id}" class="button ajaxer">
+							<xsl:value-of select="$locale/auth/adm/unban"/>
 						</a>
 					</xsl:when>
 					<xsl:otherwise>
-						<a href="/adm/users/list/ban/{@id}"
-						   class="button ajaxer">
-							<xsl:value-of
-									select="$locale/auth/adm/ban"/>
+						<a href="/adm/users/list/ban/{@id}" class="button ajaxer">
+							<xsl:value-of select="$locale/auth/adm/ban"/>
 						</a>
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:choose>
 					<xsl:when test="@moderator=1">
-						<a href="/adm/users/list/unmoderator/{@id}"
-						   class="button ajaxer">
-							<xsl:value-of
-									select="$locale/auth/adm/unModerator"/>
+						<a href="/adm/users/list/unmoderator/{@id}" class="button ajaxer">
+							<xsl:value-of select="$locale/auth/adm/unModerator"/>
 						</a>
 					</xsl:when>
 					<xsl:otherwise>
-						<a href="/adm/users/list/moderator/{@id}"
-						   class="button ajaxer">
-							<xsl:value-of
-									select="$locale/auth/adm/moderator"/>
+						<a href="/adm/users/list/moderator/{@id}" class="button ajaxer">
+							<xsl:value-of select="$locale/auth/adm/moderator"/>
 						</a>
 					</xsl:otherwise>
 				</xsl:choose>
-				<a href="/adm/users/list/edit/{@id}"
-				   class="action edit"/>
+				<a href="/adm/users/list/edit/{@id}" class="action edit"/>
 			</td>
 		</tr>
 	</xsl:template>
 </xsl:stylesheet>
-
